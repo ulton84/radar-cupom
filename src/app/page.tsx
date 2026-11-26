@@ -350,13 +350,21 @@ export default function HomePage({ searchParams }: SearchParamsProps) {
               </p>
             </div>
           </Link>
-          <Link
-            href="/meus-alertas"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#16a34a] px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-green-700 transition-colors"
-          >
-            <Bell className="h-4 w-4" />
-            Meus Alertas / Entrar
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/admin"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
+            >
+              Painel Admin
+            </Link>
+            <Link
+              href="/meus-alertas"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#16a34a] px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-green-700 transition-colors"
+            >
+              <Bell className="h-4 w-4" />
+              Meus Alertas / Entrar
+            </Link>
+          </div>
         </div>
       </header>
 

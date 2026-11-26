@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { isUserAdmin } from "@/lib/auth/admin";
 import { AdminDashboard, type AdminCoupon, type AdminStore } from "./AdminDashboard";
 
 async function AdminContent() {
@@ -12,10 +13,8 @@ async function AdminContent() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const adminEmail = process.env.ADMIN_EMAIL;
-
-  // Protegido no servidor: permite acesso apenas se o e-mail for exatamente ADMIN_EMAIL
-  if (!user || !adminEmail || user.email?.trim().toLowerCase() !== adminEmail.trim().toLowerCase()) {
+  // Protegido no servidor: permite acesso apenas para e-mails de administrador
+  if (!user || !isUserAdmin(user.email)) {
     redirect("/");
   }
 
@@ -46,7 +45,7 @@ async function AdminContent() {
     <AdminDashboard
       initialStores={stores}
       initialCoupons={coupons}
-      adminEmail={user.email || adminEmail}
+      adminEmail={user.email || "admin@radarcupom.com"}
     />
   );
 }

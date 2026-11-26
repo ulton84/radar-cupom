@@ -1,5 +1,19 @@
 import { createClient } from "@/lib/supabase/server";
 
+export function isUserAdmin(email?: string | null): boolean {
+  if (!email) return false;
+  const normalized = email.trim().toLowerCase();
+
+  // Lista de e-mails com permissão de administrador
+  const allowedAdmins = [
+    "ulton22@gmail.com",
+    "admin@radarcupom.com",
+    process.env.ADMIN_EMAIL?.trim().toLowerCase(),
+  ].filter(Boolean);
+
+  return allowedAdmins.includes(normalized);
+}
+
 export async function getAdminUser() {
   try {
     const supabase = await createClient();
@@ -10,8 +24,7 @@ export async function getAdminUser() {
 
     if (error || !user) return null;
 
-    const adminEmail = process.env.ADMIN_EMAIL;
-    if (!adminEmail || user.email?.trim().toLowerCase() !== adminEmail.trim().toLowerCase()) {
+    if (!isUserAdmin(user.email)) {
       return null;
     }
 

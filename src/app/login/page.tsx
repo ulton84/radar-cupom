@@ -24,13 +24,17 @@ export default function LoginPage() {
     setInfo(null);
 
     const supabase = createClient();
+    const adminEmails = ["ulton22@gmail.com", "admin@radarcupom.com"];
+    const targetUrl = adminEmails.includes(email.trim().toLowerCase())
+      ? "/admin"
+      : "/meus-alertas";
 
     if (tab === "login") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
         setError(error.message);
       } else {
-        router.push("/meus-alertas");
+        router.push(targetUrl);
         router.refresh();
         return;
       }
@@ -39,7 +43,7 @@ export default function LoginPage() {
       if (error) {
         setError(error.message);
       } else if (data.session) {
-        router.push("/meus-alertas");
+        router.push(targetUrl);
         router.refresh();
         return;
       } else {

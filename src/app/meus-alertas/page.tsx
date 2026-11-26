@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { isUserAdmin } from "@/lib/auth/admin";
 import { AlertsManager, type UserAlert } from "./AlertsManager";
 import type { Store } from "@/types";
 
@@ -25,12 +26,7 @@ async function AlertasContent() {
     supabase.from("stores").select("id, name").eq("is_active", true).order("name"),
   ]);
 
-  const adminEmail = process.env.ADMIN_EMAIL;
-  const isAdmin = Boolean(
-    user.email &&
-      adminEmail &&
-      user.email.trim().toLowerCase() === adminEmail.trim().toLowerCase()
-  );
+  const isAdmin = isUserAdmin(user.email);
 
   return (
     <div className="min-h-screen bg-[#f8fafc]">
