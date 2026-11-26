@@ -11,7 +11,7 @@ export function convertAffiliateUrl(originalUrl: string, storeSlug?: string): st
     const host = urlObj.hostname.toLowerCase();
 
     // 1. Amazon
-    const amazonTag = process.env.AMAZON_AFFILIATE_TAG || "radar-cupom-20";
+    const amazonTag = process.env.AMAZON_AFFILIATE_TAG || "radar0bb-20";
     if (host.includes("amazon.com") || host.includes("amzn.to") || storeSlug === "amazon") {
       // Remove tags antigas de terceiros e injeta a sua
       urlObj.searchParams.set("tag", amazonTag);
