@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { AlertsManager, type UserAlert } from "./AlertsManager";
 import type { Store } from "@/types";
@@ -25,6 +25,13 @@ async function AlertasContent() {
     supabase.from("stores").select("id, name").eq("is_active", true).order("name"),
   ]);
 
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const isAdmin = Boolean(
+    user.email &&
+      adminEmail &&
+      user.email.trim().toLowerCase() === adminEmail.trim().toLowerCase()
+  );
+
   return (
     <div className="min-h-screen bg-[#f8fafc]">
       <header className="border-b border-slate-200 bg-white">
@@ -32,7 +39,18 @@ async function AlertasContent() {
           <Link href="/" className="flex items-center gap-1.5 text-sm font-semibold text-slate-600">
             <ArrowLeft className="h-4 w-4" /> Cupons
           </Link>
-          <span className="text-xs text-slate-500">{user.email}</span>
+          <div className="flex items-center gap-3">
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3 py-1.5 text-xs font-bold text-white hover:bg-slate-800 transition-colors shadow-sm"
+              >
+                <ShieldCheck className="h-3.5 w-3.5 text-[#16a34a]" />
+                Painel Admin
+              </Link>
+            )}
+            <span className="text-xs text-slate-500">{user.email}</span>
+          </div>
         </div>
       </header>
       <main className="mx-auto max-w-3xl px-4 py-8">
