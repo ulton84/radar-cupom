@@ -1,0 +1,14 @@
+{
+  "name": "Radar Cupom",
+  "short_name": "Radar Cupom",
+  "description": "Cupons de desconto verificados e alertas de ofertas.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#16a34a",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
