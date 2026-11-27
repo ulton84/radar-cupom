@@ -4,6 +4,7 @@ import { connection } from "next/server";
 import { Search, Store as StoreIcon, Filter, X, Sparkles, AlertCircle, Bell } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { CouponCard } from "@/components/CouponCard";
+import { InstallPwaButton } from "@/components/InstallPwaButton";
 import type { Coupon, Store } from "@/types";
 
 interface SearchParamsProps {
@@ -350,7 +351,8 @@ export default function HomePage({ searchParams }: SearchParamsProps) {
               </p>
             </div>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <InstallPwaButton />
             <Link
               href="/admin"
               className="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors"
