@@ -14,6 +14,11 @@ export function InstallPwaButton() {
   const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
+    // Registra o Service Worker globalmente para habilitar o PWA e Web Push
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
+
     // Verifica se já está em modo PWA standalone
     if (
       window.matchMedia("(display-mode: standalone)").matches ||

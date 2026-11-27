@@ -16,7 +16,19 @@ export const metadata: Metadata = {
   title: "Radar Cupom - Cupons de Desconto e Ofertas Ativas",
   description: "Encontre os melhores cupons de desconto verificados e economize em suas compras online.",
   manifest: "/manifest.json",
-  icons: { icon: "/icon.svg", apple: "/icon.svg" },
+  icons: {
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/icon-192.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Radar Cupom",
+  },
 };
 
 export const viewport: Viewport = {
